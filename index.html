@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Greatest Memories </title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #282c34;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .gallery-container {
+            perspective: 1200px;
+        }
+
+        .gallery {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            transform-style: preserve-3d;
+            transition: transform 1s;
+        }
+
+        .gallery-item {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            transition: transform 0.5s;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05) rotateY(10deg);
+        }
+
+        .gallery-item:nth-child(1) { transform: rotateY(0deg) translateZ(150px); }
+        .gallery-item:nth-child(2) { transform: rotateY(72deg) translateZ(150px); }
+        .gallery-item:nth-child(3) { transform: rotateY(144deg) translateZ(150px); }
+        .gallery-item:nth-child(4) { transform: rotateY(216deg) translateZ(150px); }
+        .gallery-item:nth-child(5) { transform: rotateY(288deg) translateZ(150px); }
+
+        .controls {
+            margin-top: 20px;
+        }
+
+        button {
+            margin: 0 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background-color: #61dafb;
+            color: #282c34;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #21a1f1;
+        }
+    </style>
+</head>
+<body>
+    <div class="gallery-container">
+        <div class="gallery">
+            <div class="gallery-item" style="background-image: url('1730354208826.jpg');"></div>
+            <div class="gallery-item" style="background-image: url('IMG-20241031-WA0001.jpg');"></div>
+            <div class="gallery-item" style="background-image: url('IMG-20240925-WA0016.jpg');"></div>
+            <div class="gallery-item" style="background-image: url('IMG-20240925-WA0015.jpg');"></div>
+            <div class="gallery-item" style="background-image: url('IMG-20240814-WA0050.webp');"></div>
+        </div>
+        <br> 
+    </div>
+    <div class="controls">
+        <button id="prev">Previous</button>
+        <button id="next">Next</button>
+    </div>
+    <br>
+    	
+
+    <script>
+        let currentIndex = 0;
+        const items = document.querySelectorAll('.gallery-item');
+        const totalItems = items.length;
+
+        document.getElementById('next').addEventListener('click', () => {
+            currentIndex = (currentIndex + 1) % totalItems;
+            updateGallery();
+        });
+
+        document.getElementById('prev').addEventListener('click', () => {
+            currentIndex = (currentIndex - 1 + totalItems) % totalItems;
+            updateGallery();
+        });
+
+        function updateGallery() {
+            const angle = -currentIndex * (360 / totalItems);
+            document.querySelector('.gallery').style.transform = `rotateY(${angle}deg)`;
+        }
+    </script>
+</body>
+</html>
